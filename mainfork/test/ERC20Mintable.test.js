@@ -14,14 +14,15 @@ const daiAbi = [
 
 const ydaiAddress = "0xdA816459F1AB5631232FE5e97a05BBBb94970c95";
 const ydaiAbi = [
-    "function deposit() returns (uint256)",
-    "function deposit(uint256 amount) returns (uint256)",
-    "function deposit(uint256 amount, address recipient) returns (uint256)",
-    "function withdraw() returns (uint256)",
-    "function withdraw(uint256 maxShares) returns (uint256)",
+    "function deposit(uint256 _amount, address recipient) returns (uint256)",
     "function withdraw(uint256 maxShares, address recipient) returns (uint256)",
     "function balanceOf(address) view returns (uint)"
 ];
+
+    //"function withdraw() returns (uint256)",
+    //"function withdraw(uint256 maxShares) returns (uint256)",
+    //"function deposit() returns (uint256)",
+    //"function deposit(uint256 _amount) returns (uint256)",
 
 describe('mint', function () {
   before(async function () {
@@ -68,9 +69,14 @@ describe('mint', function () {
     //console.log(await dai.balanceOf(addr2.address));
     //console.log(await dai.balanceOf("0x6f6c07d80d0d433ca389d336e6d1febea2489264"));
 
-    await dai.connect(addr2).approve(daiAddress, 100); 
-    const receivedToken =  await ydai.connect(addr2).deposit(100, daiAddress);
+    await dai.connect(addr2).approve(ydaiAddress, 100); 
+    const receivedToken =  await ydai.connect(addr2).deposit(100, addr2.address);
+
+   //const receivedToken =  await ydai.connect(addr2).balanceOf("0xe8e8f41ed29e46f34e206d7d2a7d6f735a3ff2cb");
+
     console.log(receivedToken); 
+
+    console.log(await ydai.connect(addr2).balanceOf(addr2.address));
 
 
 
