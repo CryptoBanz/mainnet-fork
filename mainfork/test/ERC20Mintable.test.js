@@ -74,11 +74,11 @@ describe('mint', function () {
 
    //const receivedToken =  await ydai.connect(addr2).balanceOf("0xe8e8f41ed29e46f34e206d7d2a7d6f735a3ff2cb");
 
-    console.log(receivedToken); 
+    //console.log(receivedToken); 
 
-    console.log(await ydai.connect(addr2).balanceOf(addr2.address));
+    //console.log(await ydai.connect(addr2).balanceOf(addr2.address));
 
-
+    console.log(addr2.provider);
 
 
   });
