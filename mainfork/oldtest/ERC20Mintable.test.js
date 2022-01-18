@@ -78,7 +78,7 @@ describe('mint', function () {
 
     //console.log(await ydai.connect(addr2).balanceOf(addr2.address));
 
-    console.log(addr2.provider);
+    //console.log(addr2.provider);
 
 
   });
