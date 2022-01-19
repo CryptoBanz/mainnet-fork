@@ -1,7 +1,9 @@
-import { ethers } from 'hardhat';
+import {hre, ethers, network } from 'hardhat';
 import "@nomiclabs/hardhat-waffle";
 import { Contract, Signer } from 'ethers';
 import { DefiBridgeProxy, AztecAssetType } from './defi_bridge_proxy';
+import { expect} from "chai";
+
 
 const daiAddress = "0x6b175474e89094c44da98b954eedeac495271d0f";
 const daiAbi = [
@@ -22,11 +24,15 @@ const yvdaiAbi = [
 
 
 describe('defi bridge', function () {
-    let bridgeProxy: DefiBridgeProxy;
-    let signer: Signer;
-    let signerAddress: string;
+    let bridgeProxy : DefiBridgeProxy;
+    let signerAddress : string;
+    let yearnBridgeAddress : string;
+    let signer : Signer;
+    let yvdai : Contract;
+    let dai : Contract;
    
-    beforeAll(async () => {
+    before(async () => {
+        
         const anEthersProvider = new ethers.providers.Web3Provider(network.provider);
         const yvdai =  new ethers.Contract(yvdaiAddress, yvdaiAbi, anEthersProvider);
         const dai =  new ethers.Contract(daiAddress, daiAbi, anEthersProvider);
@@ -34,15 +40,16 @@ describe('defi bridge', function () {
         [signer] = await ethers.getSigners();
         signerAddress = await signer.getAddress();
         bridgeProxy = await DefiBridgeProxy.deploy(signer);
-        yearnBridgeAddress = await bridgeProxy.deployBridge(signer, abi, [yvdaiAddress]);
+        const yearnBridgeAddress = await bridgeProxy.deployBridge(signer, abi, [yvdaiAddress]);
+
 
         // Fund rollup with dai.
         await hre.network.provider.request({
           method: "hardhat_impersonateAccount",
           params: ["0x6f6c07d80d0d433ca389d336e6d1febea2489264"],
         }); 
-        const signer = await ethers.getSigner("0x6f6c07d80d0d433ca389d336e6d1febea2489264");
-        await dai.connect(signer).transfer(yearnBridgeAddress, 150);
+        const signer2 = await ethers.getSigner("0x6f6c07d80d0d433ca389d336e6d1febea2489264");
+        await dai.connect(signer2).transfer(yearnBridgeAddress, 150);
 
   });
 
@@ -62,12 +69,12 @@ describe('defi bridge', function () {
         erc20Address: yvdaiAddress,
       },
       {},
-      100,
-      0,
-      0,
+      100n,
+      0n,
+      0n,
     );
 
     console.log(await yvdai.balanceOf(yearnBridgeAddress));
-    expect(isAsync).toBe(false);
+    expect(isAsync).equal(false);
   });
 });
