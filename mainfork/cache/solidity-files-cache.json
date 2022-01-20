@@ -366,8 +366,8 @@
       ]
     },
     "/Users/mmsek/web3/mainnet-fork/mainfork/contracts/YearnBridge.sol": {
-      "lastModificationDate": 1642452441950,
-      "contentHash": "8b1be07984420e5640ef0a4d1b089ee9",
+      "lastModificationDate": 1642683530743,
+      "contentHash": "90d75d5babe82e411759a149b380f502",
       "sourceName": "contracts/YearnBridge.sol",
       "solcConfig": {
         "version": "0.8.0",

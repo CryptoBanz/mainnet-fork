@@ -1,9 +1,10 @@
-import {hre, ethers, network } from 'hardhat';
+import {network, waffle,  ethers} from 'hardhat';
 import "@nomiclabs/hardhat-waffle";
 import { Contract, Signer } from 'ethers';
 import { DefiBridgeProxy, AztecAssetType } from './defi_bridge_proxy';
 import { expect} from "chai";
-
+import abi from '../artifacts/contracts/YearnBridge.sol/YearnBridge.json';
+import 'hardhat';
 
 const daiAddress = "0x6b175474e89094c44da98b954eedeac495271d0f";
 const daiAbi = [
@@ -30,31 +31,31 @@ describe('defi bridge', function () {
     let signer : Signer;
     let yvdai : Contract;
     let dai : Contract;
-   
+    let signer2 : Signer;
+
+
     before(async () => {
-        
-        const anEthersProvider = new ethers.providers.Web3Provider(network.provider);
+        const anEthersProvider = ethers.provider;
         const yvdai =  new ethers.Contract(yvdaiAddress, yvdaiAbi, anEthersProvider);
         const dai =  new ethers.Contract(daiAddress, daiAbi, anEthersProvider);
 
         [signer] = await ethers.getSigners();
         signerAddress = await signer.getAddress();
         bridgeProxy = await DefiBridgeProxy.deploy(signer);
-        const yearnBridgeAddress = await bridgeProxy.deployBridge(signer, abi, [yvdaiAddress]);
+        yearnBridgeAddress = await bridgeProxy.deployBridge(signer, abi, []) 
 
 
         // Fund rollup with dai.
-        await hre.network.provider.request({
+        await network.provider.request({
           method: "hardhat_impersonateAccount",
           params: ["0x6f6c07d80d0d433ca389d336e6d1febea2489264"],
         }); 
-        const signer2 = await ethers.getSigner("0x6f6c07d80d0d433ca389d336e6d1febea2489264");
+        
+        signer2 = await ethers.getSigner("0x6f6c07d80d0d433ca389d336e6d1febea2489264");
         await dai.connect(signer2).transfer(yearnBridgeAddress, 150);
-
   });
-
   it('should swap dai to yvDai tokens', async () => {
-    const { isAsync, outputValueA, outputValueB } = await bridgeProxy.convert(
+    /** const { isAsync, outputValueA, outputValueB } = await bridgeProxy.convert(
       signer,
       yearnBridgeAddress,
       {
@@ -76,5 +77,8 @@ describe('defi bridge', function () {
 
     console.log(await yvdai.balanceOf(yearnBridgeAddress));
     expect(isAsync).equal(false);
+   */
+    console.log(ethers.provider); 
+
   });
 });

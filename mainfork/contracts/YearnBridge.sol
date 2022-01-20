@@ -22,7 +22,7 @@ contract YearnBridge is IDefiBridge {
   address public immutable yvdaiAddress = 0x6B175474E89094C44Da98b954EedeAC495271d0F; 
   address public immutable daiAddress = 0xdA816459F1AB5631232FE5e97a05BBBb94970c95; 
 
-  constructor(address _rollupProcessor, address _vaultAddress) public {
+  constructor(address _rollupProcessor) public {
     rollupProcessor = _rollupProcessor;
   }
 
