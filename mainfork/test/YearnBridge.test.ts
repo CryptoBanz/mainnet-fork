@@ -36,8 +36,8 @@ describe('defi bridge', function () {
 
     before(async () => {
         const anEthersProvider = ethers.provider;
-        const yvdai =  new ethers.Contract(yvdaiAddress, yvdaiAbi, anEthersProvider);
-        const dai =  new ethers.Contract(daiAddress, daiAbi, anEthersProvider);
+        yvdai =  new ethers.Contract(yvdaiAddress, yvdaiAbi, anEthersProvider);
+        dai =  new ethers.Contract(daiAddress, daiAbi, anEthersProvider);
 
         [signer] = await ethers.getSigners();
         signerAddress = await signer.getAddress();
@@ -52,10 +52,12 @@ describe('defi bridge', function () {
         }); 
         
         signer2 = await ethers.getSigner("0x6f6c07d80d0d433ca389d336e6d1febea2489264");
-        await dai.connect(signer2).transfer(yearnBridgeAddress, 150);
+        await dai.connect(signer2).transfer(bridgeProxy.address , 150);
+
   });
   it('should swap dai to yvDai tokens', async () => {
-    /** const { isAsync, outputValueA, outputValueB } = await bridgeProxy.convert(
+
+    const { isAsync, outputValueA, outputValueB } = await bridgeProxy.convert(
       signer,
       yearnBridgeAddress,
       {
@@ -77,8 +79,7 @@ describe('defi bridge', function () {
 
     console.log(await yvdai.balanceOf(yearnBridgeAddress));
     expect(isAsync).equal(false);
-   */
-    console.log(ethers.provider); 
+  
 
   });
 });

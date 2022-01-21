@@ -9,6 +9,8 @@ import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IDefiBridge } from "./interfaces/IDefiBridge.sol";
 import { Types } from "./Types.sol";
 
+import 'hardhat/console.sol';
+
 interface VaultAPI {
     function deposit(uint256 amount, address recipient) external returns (uint256);
     function withdraw(uint256 maxShares, address recipient) external returns (uint256);
@@ -18,9 +20,8 @@ contract YearnBridge is IDefiBridge {
   using SafeMath for uint256;
 
   address public immutable rollupProcessor;
-
-  address public immutable yvdaiAddress = 0x6B175474E89094C44Da98b954EedeAC495271d0F; 
-  address public immutable daiAddress = 0xdA816459F1AB5631232FE5e97a05BBBb94970c95; 
+  address public immutable yvdaiAddress= 0xdA816459F1AB5631232FE5e97a05BBBb94970c95; 
+  address public immutable daiAddress= 0x6B175474E89094C44Da98b954EedeAC495271d0F; 
 
   constructor(address _rollupProcessor) public {
     rollupProcessor = _rollupProcessor;
@@ -57,6 +58,7 @@ contract YearnBridge is IDefiBridge {
 
     // Deposit
     if(inputAssetA.erc20Address == daiAddress ){
+        console.log('---- Starting deposit ----');
         VaultAPI vault = VaultAPI(outputAssetA.erc20Address);
         daiContract.approve(rollupProcessor, inputValue);
         uint256 outputValueA = vault.deposit(inputValue, rollupProcessor);
@@ -64,6 +66,7 @@ contract YearnBridge is IDefiBridge {
 
     // Withdraw 
     else {
+        console.log('---- Starting withdraw ----');
         VaultAPI vault = VaultAPI(inputAssetA.erc20Address);
         uint256 outputValueA = vault.withdraw(inputValue, rollupProcessor);
     } 

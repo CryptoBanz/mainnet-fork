@@ -7,7 +7,7 @@ import { SafeMath } from "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import { IDefiBridge } from "./interfaces/IDefiBridge.sol";
 import { Types } from "./Types.sol";
 
-// import 'hardhat/console.sol';
+import 'hardhat/console.sol';
 
 contract DefiBridgeProxy {
   using SafeMath for uint256;

@@ -82,7 +82,7 @@
       "contentHash": "cc4777addd464ea56fa35b1c45df0591",
       "sourceName": "hardhat/console.sol",
       "solcConfig": {
-        "version": "0.8.4",
+        "version": "0.8.0",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -220,8 +220,8 @@
       ]
     },
     "/Users/mmsek/web3/mainnet-fork/mainfork/contracts/DefiBridgeProxy.sol": {
-      "lastModificationDate": 1642446443128,
-      "contentHash": "97f3bc2b465daedbb6e3d95e679f9f2a",
+      "lastModificationDate": 1642777864878,
+      "contentHash": "77c4d59ac6cf55234aea905c8b62fca5",
       "sourceName": "contracts/DefiBridgeProxy.sol",
       "solcConfig": {
         "version": "0.8.0",
@@ -249,7 +249,8 @@
       "imports": [
         "@openzeppelin/contracts/utils/math/SafeMath.sol",
         "./interfaces/IDefiBridge.sol",
-        "./Types.sol"
+        "./Types.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "0.8.0"
@@ -366,8 +367,8 @@
       ]
     },
     "/Users/mmsek/web3/mainnet-fork/mainfork/contracts/YearnBridge.sol": {
-      "lastModificationDate": 1642683530743,
-      "contentHash": "90d75d5babe82e411759a149b380f502",
+      "lastModificationDate": 1642778007715,
+      "contentHash": "dafd062344cf0bc0a86d0283cf11b27a",
       "sourceName": "contracts/YearnBridge.sol",
       "solcConfig": {
         "version": "0.8.0",
@@ -396,7 +397,8 @@
         "@openzeppelin/contracts/utils/math/SafeMath.sol",
         "@openzeppelin/contracts/token/ERC20/IERC20.sol",
         "./interfaces/IDefiBridge.sol",
-        "./Types.sol"
+        "./Types.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "0.8.0"
